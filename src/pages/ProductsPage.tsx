@@ -8,7 +8,7 @@ interface ProductsPageProps {}
 
 const ProductsPage = (props: ProductsPageProps) => {
   return (
-    <Container>
+    <Container maxWidth='md' sx={{ marginY: 2 }}>
       <ProductForm />
       <ProductsList />
     </Container>
