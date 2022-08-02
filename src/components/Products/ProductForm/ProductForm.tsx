@@ -1,7 +1,11 @@
 import { Button, Card, Grid, TextField, Typography } from '@mui/material';
+
 import React, { ChangeEvent, FormEvent } from 'react';
 
+import { IProduct } from 'interfaces/IProduct';
+
 export interface IProductFormProps {
+  data: IProduct;
   handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
@@ -13,7 +17,6 @@ export const quantityFieldProps = {
 
 const priceFieldProps = {
   min: 0,
-  defaultValue: 0,
 };
 
 const ProductForm = (props: IProductFormProps) => {
@@ -31,6 +34,7 @@ const ProductForm = (props: IProductFormProps) => {
               label='Product name'
               type='text'
               fullWidth={true}
+              value={props.data.name}
               onChange={handleInputChange}
             />
           </Grid>
@@ -42,6 +46,7 @@ const ProductForm = (props: IProductFormProps) => {
               helperText='Max. 10'
               inputProps={quantityFieldProps}
               fullWidth={true}
+              value={props.data.quantity}
               onChange={handleInputChange}
             />
           </Grid>
@@ -53,6 +58,7 @@ const ProductForm = (props: IProductFormProps) => {
               helperText='In RUB currency'
               inputProps={priceFieldProps}
               fullWidth={true}
+              value={props.data.price}
               onChange={handleInputChange}
             />
           </Grid>
