@@ -1,5 +1,5 @@
 import { Box, List } from '@mui/material';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 import ProductsListItem from './ProductsListItem/ProductsListItem';
 
@@ -7,19 +7,21 @@ import { IProduct } from 'interfaces/IProduct';
 
 interface IProductsListProps {
   listData: IProduct[];
-  setListData: Dispatch<SetStateAction<IProduct[]>>;
+  deleteItem: (id: string | number) => void;
+  updateItemQuantity: (id: string | number, value: number) => void;
 }
 
-const ProductsList = ({ listData, setListData }: IProductsListProps) => {
-  console.log('rendered');
-  const handleDelete = (id: string | number) => {
-    setListData([...listData.filter((v) => v.id !== id)]);
-  };
+const ProductsList = ({ listData, deleteItem, updateItemQuantity }: IProductsListProps) => {
   return (
     <Box flex={1}>
       <List>
         {listData.map((item) => (
-          <ProductsListItem key={item.id} {...item} handleDelete={handleDelete} />
+          <ProductsListItem
+            key={item.id}
+            {...item}
+            onDeleteClick={deleteItem}
+            updateItemQuantity={updateItemQuantity}
+          />
         ))}
       </List>
     </Box>

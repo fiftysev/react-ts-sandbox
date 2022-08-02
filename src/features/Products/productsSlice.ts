@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { remove } from 'lodash';
+import { clamp, remove } from 'lodash';
 
 import { IProduct } from 'interfaces/IProduct';
 
@@ -23,10 +23,14 @@ export const productsSlice = createSlice({
     deleteProduct: (state, action: PayloadAction<string | number>) => {
       remove(state.items, (v) => v.id === action.payload);
     },
+    updateQuantity: (state, action: PayloadAction<{ id: string | number; value: number }>) => {
+      const item = state.items.find((v) => v.id === action.payload.id);
+      if (item) item.quantity = clamp(action.payload.value, 1, 10);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addProduct, deleteProduct } = productsSlice.actions;
+export const { addProduct, deleteProduct, updateQuantity } = productsSlice.actions;
 
 export default productsSlice.reducer;

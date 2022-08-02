@@ -21,9 +21,6 @@ const priceFieldProps = {
 
 const ProductForm = (props: IProductFormProps) => {
   const { handleSubmit } = props;
-
-  console.log('rendered form');
-
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);

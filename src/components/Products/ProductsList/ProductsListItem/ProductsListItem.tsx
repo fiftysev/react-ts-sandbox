@@ -1,11 +1,13 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, DeleteOutlined } from '@mui/icons-material';
 import { IconButton, ListItem, ListItemText, Paper, Stack, Typography } from '@mui/material';
+import { update } from 'lodash';
 import React, { useMemo } from 'react';
 
 import { IProduct } from 'interfaces/IProduct';
 
 interface IProductsListItemProps extends IProduct {
-  handleDelete: (id: string | number) => void;
+  onDeleteClick: (id: string | number) => void;
+  updateItemQuantity: (id: string | number, value: number) => void;
 }
 
 const ProductsListItem = (props: IProductsListItemProps) => {
@@ -29,15 +31,21 @@ const ProductsListItem = (props: IProductsListItemProps) => {
           }
         />
         <Stack direction='row' alignItems='center'>
-          <IconButton>
-            <ArrowLeftOutlined aria-label='decrement quantity' />
+          <IconButton
+            aria-label='decrement quantity'
+            onClick={() => props.updateItemQuantity(props.id, props.quantity - 1)}
+          >
+            <ArrowLeftOutlined />
           </IconButton>
           <ListItemText>{props.quantity}</ListItemText>
-          <IconButton aria-label='increment quantity'>
+          <IconButton
+            aria-label='increment quantity'
+            onClick={() => props.updateItemQuantity(props.id, props.quantity + 1)}
+          >
             <ArrowRightOutlined />
           </IconButton>
         </Stack>
-        <IconButton aria-label='delete item' onClick={() => props.handleDelete(props.id)}>
+        <IconButton aria-label='delete item' onClick={() => props.onDeleteClick(props.id)}>
           <DeleteOutlined color='error' />
         </IconButton>
       </ListItem>
