@@ -1,41 +1,27 @@
 import { Container } from '@mui/material';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { v4 } from 'uuid';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ProductForm from '../components/Products/ProductForm/ProductForm';
 import ProductsList from '../components/Products/ProductsList/ProductsList';
 import { IProduct } from '../interfaces/IProduct';
 
+import { addProduct } from 'features/Products/productsSlice';
+
+import type { RootState } from 'store/store';
+
 interface IProductsPageProps {}
 
-const initialProductState = { id: Number.MIN_SAFE_INTEGER, name: '', quantity: 1, price: 0 };
-
 const ProductsPage = (props: IProductsPageProps) => {
-  console.log('rendered');
-  const [id] = useState(v4);
-  const [product, setProduct] = useState<IProduct>(initialProductState);
   const [listData, setListData] = useState<IProduct[]>([]);
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    e.preventDefault();
-
-    setProduct({
-      ...product,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setProduct({ ...product, id });
-    setListData([...listData, product]);
-    setProduct(initialProductState);
-  };
+  const products = useSelector((state: RootState) => state.products.items);
+  const dispatch = useDispatch();
 
   return (
     <Container maxWidth='md' sx={{ marginY: 2 }}>
-      <ProductForm data={product} handleInputChange={onInputChange} handleSubmit={onSubmit} />
-      <ProductsList listData={listData} setListData={setListData} />
+      <ProductForm handleSubmit={(payload: IProduct) => dispatch(addProduct(payload))} />
+      <ProductsList listData={products} setListData={setListData} />
     </Container>
   );
 };

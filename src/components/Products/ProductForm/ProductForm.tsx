@@ -1,13 +1,13 @@
 import { Button, Card, Grid, TextField, Typography } from '@mui/material';
 
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
+
+import { v4 } from 'uuid';
 
 import { IProduct } from 'interfaces/IProduct';
 
 export interface IProductFormProps {
-  data: IProduct;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (payload: IProduct) => void;
 }
 
 export const quantityFieldProps = {
@@ -20,23 +20,31 @@ const priceFieldProps = {
 };
 
 const ProductForm = (props: IProductFormProps) => {
-  const { handleSubmit, handleInputChange } = props;
+  const { handleSubmit } = props;
+
+  console.log('rendered form');
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const payload = {
+      id: v4(),
+      name: data.get('name')?.toString() ?? '',
+      quantity: Number(data.get('quantity')?.toString()) ?? 0,
+      price: Number(data.get('price')?.toString()) ?? 0,
+    };
+    e.currentTarget.reset();
+    handleSubmit(payload);
+  };
   return (
     <Card variant='outlined' sx={{ padding: 2 }}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <Grid container columnSpacing={2} rowSpacing={2}>
           <Grid item>
             <Typography variant='h4'>Add product</Typography>
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              name='name'
-              label='Product name'
-              type='text'
-              fullWidth={true}
-              value={props.data.name}
-              onChange={handleInputChange}
-            />
+            <TextField name='name' label='Product name' type='text' fullWidth={true} />
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -46,8 +54,6 @@ const ProductForm = (props: IProductFormProps) => {
               helperText='Max. 10'
               inputProps={quantityFieldProps}
               fullWidth={true}
-              value={props.data.quantity}
-              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={6}>
@@ -58,8 +64,6 @@ const ProductForm = (props: IProductFormProps) => {
               helperText='In RUB currency'
               inputProps={priceFieldProps}
               fullWidth={true}
-              value={props.data.price}
-              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
