@@ -6,10 +6,9 @@ export interface IProductFormProps {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-const quantityFieldProps = {
+export const quantityFieldProps = {
   min: 1,
   max: 10,
-  defaultValue: 1,
 };
 
 const priceFieldProps = {
@@ -58,7 +57,7 @@ const ProductForm = (props: IProductFormProps) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button variant='outlined' fullWidth={true} type='submit'>
+            <Button variant='contained' color='success' fullWidth={true} type='submit'>
               Add
             </Button>
           </Grid>

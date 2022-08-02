@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider, Typography } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import React from 'react';
 
 import ProductsPage from './pages/ProductsPage';
@@ -13,9 +13,6 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Typography variant='h3' textAlign='center' fontWeight='bold'>
-        Example app
-      </Typography>
       <ProductsPage />
     </ThemeProvider>
   );

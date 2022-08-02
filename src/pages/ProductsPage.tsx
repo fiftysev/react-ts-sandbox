@@ -28,7 +28,10 @@ const ProductsPage = (props: IProductsPageProps) => {
   return (
     <Container maxWidth='md' sx={{ marginY: 2 }}>
       <ProductForm handleInputChange={onInputChange} handleSubmit={onSubmit} />
-      <ProductsList items={listData} />
+      <ProductsList
+        listData={[{ name: 'Test', quantity: 2, price: 123.2 }]}
+        setListData={setListData}
+      />
     </Container>
   );
 };
