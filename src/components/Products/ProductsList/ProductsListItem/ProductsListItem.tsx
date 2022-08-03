@@ -1,6 +1,5 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, DeleteOutlined } from '@mui/icons-material';
 import { IconButton, ListItem, ListItemText, Paper, Stack, Typography } from '@mui/material';
-import { update } from 'lodash';
 import React, { useMemo } from 'react';
 
 import { IProduct } from 'interfaces/IProduct';
@@ -23,10 +22,10 @@ const ProductsListItem = (props: IProductsListItemProps) => {
           }
         />
         <ListItemText
-          primary={<Typography fontWeight='bold'>{subtotalPrice}</Typography>}
+          primary={<Typography fontWeight='bold'>{subtotalPrice.toFixed(2)} $</Typography>}
           secondary={
             <Typography sx={{ display: 'inline' }} component='span' color='text.secondary'>
-              {props.price} per piece
+              {props.price} $ per piece
             </Typography>
           }
         />

@@ -13,10 +13,12 @@ export interface IProductFormProps {
 export const quantityFieldProps = {
   min: 1,
   max: 10,
+  defaultValue: 1,
 };
 
 const priceFieldProps = {
   min: 0,
+  pattern: '^[0-9]*[.,]?[0-9]*$',
 };
 
 const ProductForm = (props: IProductFormProps) => {
@@ -57,8 +59,7 @@ const ProductForm = (props: IProductFormProps) => {
             <TextField
               name='price'
               label='Price'
-              type='number'
-              helperText='In RUB currency'
+              helperText='In USD'
               inputProps={priceFieldProps}
               fullWidth={true}
             />
