@@ -1,4 +1,4 @@
-import { Button, Card, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, Stack, TextField, Typography } from '@mui/material';
 
 import React, { FormEvent } from 'react';
 
@@ -38,38 +38,30 @@ const ProductForm = (props: IProductFormProps) => {
   return (
     <Card variant='outlined' sx={{ padding: 2 }}>
       <form onSubmit={onSubmit}>
-        <Grid container columnSpacing={2} rowSpacing={2}>
-          <Grid item>
-            <Typography variant='h4'>Add product</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField name='name' label='Product name' type='text' fullWidth={true} />
-          </Grid>
-          <Grid item xs={6}>
+        <Stack spacing={2}>
+          <Typography variant='h4'>Add product</Typography>
+          <TextField name='name' label='Product name' type='text' fullWidth />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
             <TextField
               name='quantity'
               label='Quantity'
               type='number'
               helperText='Max. 10'
+              sx={{ flex: 1 }}
               inputProps={quantityFieldProps}
-              fullWidth={true}
             />
-          </Grid>
-          <Grid item xs={6}>
             <TextField
               name='price'
               label='Price'
               helperText='In USD'
+              sx={{ flex: 1 }}
               inputProps={priceFieldProps}
-              fullWidth={true}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant='contained' color='success' fullWidth={true} type='submit'>
-              Add
-            </Button>
-          </Grid>
-        </Grid>
+          </Box>
+          <Button variant='contained' color='success' type='submit'>
+            Add
+          </Button>
+        </Stack>
       </form>
     </Card>
   );

@@ -13,15 +13,17 @@ const ProductsListItem = (props: IProductsListItemProps) => {
   const subtotalPrice = useMemo(() => props.quantity * props.price, [props.price, props.quantity]);
   return (
     <Paper>
-      <ListItem>
+      <ListItem sx={{ justifyContent: 'space-between' }}>
         <ListItemText
+          sx={{ flex: 1 }}
           primary={
-            <Typography textAlign='center' fontWeight='bold' maxWidth='30%'>
+            <Typography textAlign='center' fontWeight='bold'>
               {props.name}
             </Typography>
           }
         />
         <ListItemText
+          sx={{ flex: 1 }}
           primary={<Typography fontWeight='bold'>{subtotalPrice.toFixed(2)} $</Typography>}
           secondary={
             <Typography sx={{ display: 'inline' }} component='span' color='text.secondary'>

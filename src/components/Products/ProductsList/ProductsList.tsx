@@ -34,7 +34,7 @@ const ProductsList = ({ listData, deleteItem, updateItemQuantity }: IProductsLis
                 sx={{ mx: 1.25 }}
                 primary={
                   <Typography variant='h5' fontWeight='bold' textAlign='right'>
-                    Total: {total} $
+                    Total: {total.toFixed(2)} $
                   </Typography>
                 }
               />
